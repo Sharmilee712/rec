@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suresh's Kids' Sketch Pad</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="d-flex flex-column align-items-center mt-4">
+    <h3>Suresh's Kids' Sketch Pad</h3>
+    <canvas id="sketchPad" width="600" height="400" class="border border-dark"></canvas>
+    <div class="mt-3">
+        <button id="defaultBtn" class="btn btn-dark">Default</button>
+        <button id="redBtn" class="btn btn-danger">Red</button>
+        <button id="blueBtn" class="btn btn-primary">Blue</button>
+        <button id="greenBtn" class="btn btn-success">Green</button>
+        <button id="eraserBtn" class="btn btn-secondary">Eraser</button>
+        <button id="clearBtn" class="btn btn-warning">Clear Canvas</button>
+    </div>
+    <p>Current Drawing Color: <span id="currentColor">Black</span></p>
+    <script src="script.js"></script>
+</body>
+
+</html>
+document.addEventListener("DOMContentLoaded",function() {
+const canvas=document.getElementById("sketchPad");
+const ctx=canvas.getContext("2d");
+ctx.fillStyle="#ffffff";
+ctx.fillRect(0,0,canvas.width,canvas.height);
+ctx.lineWidth=5;
+let drawing=false;
+const defaultBtn=document.getElementById("defaultBtn");
+const redBtn=document.getElementById("redBtn");
+const blueBtn=document.getElementById("blueBtn");
+const greenBtn=document.getElementById("greenBtn");
+const eraserBtn=document.getElementById("eraserBtn");
+const clearBtn=document.getElementById("clearBtn");
+const currentColor=document.getElementById("currentColor");
+function setColor(color,label) {
+ctx.strokeStyle=color;
+currentColor.textContent=label;
+}
+setColor("#000000","Black");
+canvas.addEventListener("mousedown",(e) => {
+drawing=true;
+ctx.beginPath();
+ctx.moveTo(e.offsetX, e.offsetY);
+});
+canvas.addEventListener("mousemove",(e) => {
+if (!drawing) return;
+if (e.offsetX < 0 ||e.offsetY < 0 || e.offsetX> canvas.width || e.offsetY > canvas.height) return;
+    ctx.lineTo(e.offsetX, e.offsetY);
+    ctx.stroke();
+    });
+    canvas.addEventListener("mouseup",() => drawing=false);
+    canvas.addEventListener("mouseout", () => drawing=false);
+    defaultBtn.addEventListener("click", () => setColor("#000000","Black"));
+    redBtn.addEventListener("click", () => setColor("#ff0000","Red"));
+    blueBtn.addEventListener("click", () => setColor("#0000ff","Blue"));
+    greenBtn.addEventListener("click", () => setColor("#008000","Green"));
+    eraserBtn.addEventListener("click", () => setColor("#ffffff","White (Eraser)"));
+    clearBtn.addEventListener("click", () => {
+    ctx.fillStyle="#ffffff";
+    ctx.fillRect(0,0,canvas.width, canvas.height);
+    setColor("#000000","Black");
+    });
+    });
