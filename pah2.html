@@ -1,0 +1,91 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+<meta charset="UTF-8"> 
+<meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+<link rel="stylesheet" href="./styles.css"> 
+<title>Multiplication Table Generator</title> 
+</head> 
+<body> 
+<div class="mulClass"> 
+<h3>Multiplication Table Generator</h3> 
+<label for="number">Enter a number:</label> 
+<input id="number" type="number" placeholder="Enter a number"> 
+<label for="start">Start Value:</label> 
+<input id="start" type="number" placeholder="Start of range"> 
+<label for="end">End Value:</label> 
+<input id="end" type="number"  placeholder="End of range"> 
+<button type="button" id="generateBtn">Generate Table</button> 
+<span id="errormessage">All fields are required!</span> 
+<div id="table"> 
+</div> 
+</div> 
+<script src="./script.js"></script> 
+</body> 
+</html> 
+body{ 
+display: flex; 
+align-items: center; 
+justify-content: center; 
+} 
+.mulClass{ 
+display: flex; 
+flex-direction: column; 
+background-color: white; 
+box-shadow: 2px 2px 2px rgb(224, 220, 220); 
+border-radius: 1rem; 
+width:40%; 
+padding: 2%; 
+min-height: fit-content; 
+} 
+#generateBtn{ 
+background-color: rgb(77,176,80); 
+color: rgb(255,255,255); 
+padding: 1%; 
+} 
+input{ 
+margin-bottom: 2%; 
+padding: 1%; 
+} 
+label{ 
+font-weight: bold; 
+} 
+#table{ 
+display: flex; 
+flex-direction: column; 
+} 
+#errormessage{ 
+color:red; 
+opacity:0; 
+text-align: center; 
+} 
+document.getElementById("generateBtn").addEventListener("click",()=>{ 
+const maindiv=document.getElementsByClassName("mulClass")[0]; 
+const num=document.getElementById("number").value.trim(); 
+const start=document.getElementById("start").value.trim(); 
+const end=document.getElementById("end").value.trim(); 
+const errtxt=document.getElementById("errormessage"); 
+if(!num || !start || !end){ 
+errtxt.style.opacity=1; 
+return; 
+} 
+else{ 
+errtxt.style.opacity=0; 
+let i=parseInt(start); 
+let j=parseInt(end); 
+let n=parseInt(num); 
+const tdiv=document.getElementById("table"); 
+tdiv.innerHTML=""; 
+const ptxt=document.createElement("p"); 
+ptxt.textContent=`Multiplication Table of ${n}`; 
+ptxt.style.fontWeight="bold"; 
+tdiv.appendChild(ptxt); 
+for(let k=i;k<=j;k++){ 
+let mele=document.createElement("p"); 
+let res=n*k; 
+mele.textContent=`${n} x ${k} = ${res}`; 
+tdiv.appendChild(mele); 
+} 
+} 
+})
