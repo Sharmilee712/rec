@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Document</title>
+</head>
+<body>
+ <!-- Write your code -->
+ <h1>Grade Calculator</h1>
+ <div>
+
+ <span id="marksLabel">Enter your marks (0-100): </span>
+ <input id="marks" type="number">
+ <button type="button" id="getGradeButton">Convert</button>
+ <p id="gradeResult"></p>
+ </div>
+ <script src="./script.js"></script>
+</body>
+</html>
+document.getElementById("getGradeButton").addEventListener("click",()=>{
+ const mark=parseInt(document.getElementById("marks").value.trim());
+ const result=document.getElementById("gradeResult");
+ if(!mark){
+ result.textContent="Enter any marks to get the grades.";
+ return;
+ }
+ else if(!(mark>=0 && mark<=100)){
+ result.textContent="The marks should be between 0-100.";
+ return;
+ }
+ else{
+ if(mark>=90){
+ result.textContent=`For marks ${mark}, your grade is: A`;
+ }
+ else if(mark>=80 && mark<=89){
+ result.textContent=`For marks ${mark}, your grade is: B`;
+ }
+ else if(mark>=70 && mark<=79){
+ result.textContent=`For marks ${mark}, your grade is: C`;
+ }
+ else if(mark>=60 && mark<=69){
+ result.textContent=`For marks ${mark}, your grade is: D`;
+ }
+ else{
+ result.textContent=`For marks ${mark}, your grade is: F`;
+ }
+ }
+})
