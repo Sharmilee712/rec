@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Music Album Collection Manager</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+<h3>Music Album Collection</h3>
+</header>
+<form>
+<label for="albumName">Album Name: </label>
+<input id="albumName" type="text" required placeholder="Enter album name">
+<br><br>
+<label for="releaseYear">Release Year: </label>
+<input id="releaseYear" type="number" required placeholder="Enter release year">
+<br><br>
+<label for="genre">Genre: </label>
+<select id="genre">
+<option value="">Select genre</option>
+<option value="Pop">Pop</option>
+<option value="Rock">Rock</option>
+<option value="Jazz">Jazz</option>
+<option value="Classical">Classical</option>
+</select>
+<br><br>
+<input type="checkbox" id="favorite">
+<label for="favorite">Mark as Favorite </label>
+<br><br>
+<button id="addAlbumBtn" type="button">Add Album</button>
+<span id="error-message"></span>
+</form>
+<h2>Album List:</h2>
+<ul id="albumList"></ul>
+<h2>Favorite Albums:</h2>
+<ul id="favoriteAlbumList"></ul>
+<script src="script.js"></script>
+</body>
+</html>
+body{
+font: 18px Arial, sans-serif;
+background: lightblue;
+padding: 10px;
+}
+h1 {
+font-family: 'Times New Roman';
+font-size: 40px;
+}
+#albumList {
+/* color: blue; */
+background-color: lightgray;
+text-align: center;
+font-size: 14px;
+}
+ul {
+margin-left: 10px;
+padding-left: 20px;
+list-style-type: square;
+}
+input[type="text"] {
+padding: 5px 10px;
+width: 180px;
+}
+button {
+background-color: rgb(76,175,80);
+color: red;
+padding: 10px 20px;
+border: none;
+/* cursor: not-allowed; */
+}
+#error-message {
+color: #ff0000;
+font-weight: normal;
+font-size: 14px;
+display: block;
+text-align: left;
+}
+#favoriteAlbumList li {
+/* color: green; */
+font-size: 12px;
+font-weight: light;
+}
+input[type="number"] {
+width: 120px;
+padding: 8px;
+margin-top: 5px;
+background-color: yellow;
+}
+document.getElementById("addAlbumBtn").addEventListener("click",()=>{
+const an=document.getElementById("albumName").value.trim();
+const ry=document.getElementById("releaseYear").value.trim();
+const gl=document.getElementById("genre");
+const genre=gl.options[gl.selectedIndex].text;
+const fav=document.getElementById("favorite");
+const em=document.getElementById("error-message");
+if(!an || !ry ||!(gl.value.trim())){
+em.textContent="Please fill out all fields!";
+document.getElementsByTagName("form")[0].reset();
+return;
+}
+else if(fav.checked){
+em.textContent="";
+const favoriteAlbumList=document.getElementById("favoriteAlbumList");
+const liEle=document.createElement("li");
+// const hEle1=document.createElement("h2");
+// const hEle2=document.createElement("h2");
+liEle.innerHTML=`<strog>${an}</strong><br><em>Released: ${ry} | Genre: ${genre}
+</em> `;
+// liEle.appendChild(hEle1);
+// liEle.appendChild(hEle2);
+favoriteAlbumList.appendChild(liEle);
+document.getElementsByTagName("form")[0].reset();
+return;
+}
+else {
+em.textContent="";
+em.style.opacity=0;
+const albumList=document.getElementById("albumList");
+const liEle=document.createElement("li");
+// const hEle1=document.createElement("h2");
+// const hEle2=document.createElement("h2");
+// hEle1.innerHTML=an;
+// hEle2.innerHTML=`<em>Released: </em> ${ry} | <em>Genre: </em> ${genre}`;
+liEle.innerHTML=`<strog>${an}</strong><br><em>Released: ${ry} | Genre: ${genre}
+</em> `;
+// liEle.appendChild(hEle1);
+// liEle.appendChild(hEle2);
+albumList.appendChild(liEle);
+document.getElementsByTagName("form")[0].reset();
+return;
+}
+})
